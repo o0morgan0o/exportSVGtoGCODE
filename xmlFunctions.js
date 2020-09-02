@@ -221,9 +221,11 @@ function getAttribute(tag, attribute) {
 
 module.exports = {
     isa_hash: isa_hash,
+    isa_array: isa_array,
     containString: containString,
     decode_entities: decode_entities,
     num_keys: num_keys,
     first_key: first_key,
-    getAttribute: getAttribute
+    getAttribute: getAttribute,
+    trim: trim,
 }

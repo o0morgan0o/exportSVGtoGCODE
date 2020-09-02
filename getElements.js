@@ -486,6 +486,7 @@ function getPaths(treePaths, paths) {
         }
     }
     else {
+        // console.log('gaa')
         paths.push({
             childNodes: [],
             children: [],
@@ -715,5 +716,8 @@ function getGs(treeG, gs) {
 }
 
 module.exports = {
-    getPolygons: getPolygons
+    getPolygons: getPolygons,
+    getGs: getGs,
+    getRects: getRects,
+    getPaths: getPaths
 }

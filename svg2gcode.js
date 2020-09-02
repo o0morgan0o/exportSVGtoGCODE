@@ -34,6 +34,20 @@
 
 const SVGReader = require('./svgreader.js').svgReader
 
+let scale = function (val) { // val is a point value
+    // var resolution = app.activeDocument.rasterEffectSettings.resolution;
+    // var inchs = val / 72; //conversion points to inches
+    // var mm = (inchs / 0.39370) * 10;
+    // if (mm < 0) mm = 0;
+    // else {
+    //     var mmString = mm.toString().split('.');
+    //     var aux = mmString[0] + (mmString[1] == null ? '' : '.') + (mmString[1] == null ? '' : mmString[1][0]) + (mmString[1] == null ? '' : mmString[1][1]);
+    //     mm = parseFloat(aux);
+    // }
+    // return mm;
+    return 0.352778 * val
+}
+
 function svg2gcode(svg, settings) {
     // clean off any preceding whitespace
     settings = settings || {};
@@ -42,7 +56,7 @@ function svg2gcode(svg, settings) {
     settings.passWidth = 1;
     // TODO : correct this and see if the original calcul is useful
     // settings.scale = 1 / app.activeDocument.rasterEffectSettings.resolution / 0.393701;     //*106;
-    settings.scale = 1
+    // settings.scale = 2
     settings.end = settings.end ? settings.end : "";// end
     settings.lazerOff = settings.lazerOff ? settings.lazerOff : ""; // lazerOff
     settings.lazerOn = settings.lazerOn ? settings.lazerOn : "";   // lazerOn
@@ -64,28 +78,10 @@ function svg2gcode(svg, settings) {
     settings.color3 = settings.color3Text;
 
 
-
-    let scale = function (val) {
-        // var resolution = app.activeDocument.rasterEffectSettings.resolution;
-        var inchs = val / 72;
-        var mm = (inchs / 0.39370) * 10;
-        if (mm < 0) {
-            mm = 0;
-        }
-        else {
-            var mmString = mm.toString().split('.');
-            var aux = mmString[0] + (mmString[1] == null ? '' : '.') + (mmString[1] == null ? '' : mmString[1][0]) + (mmString[1] == null ? '' : mmString[1][1]);
-            mm = parseFloat(aux);
-        }
-
-        return mm;
-        //return val * settings.scale;
-    },
-        paths = SVGReader.parse(svg, {}).allcolors,
-        gcode,
-        path;
+    paths = SVGReader.parse(svg, {}).allcolors
 
     var idx = paths.length;
+    console.log('number of paths : ', idx)
     while (idx--) {
         var subidx = paths[idx].length;
         var bounds = { x: Infinity, y: Infinity, x2: -Infinity, y2: -Infinity, area: 0 };
@@ -95,11 +91,9 @@ function svg2gcode(svg, settings) {
             if (paths[idx][subidx][0] < bounds.x) {
                 bounds.x = paths[idx][subidx][0];
             }
-
             if (paths[idx][subidx][1] < bounds.y) {
                 bounds.y = paths[idx][subidx][0];
             }
-
             if (paths[idx][subidx][0] > bounds.x2) {
                 bounds.x2 = paths[idx][subidx][0];
             }
@@ -124,19 +118,24 @@ function svg2gcode(svg, settings) {
     gcode.push(settings.start);
 
     gcode.push('G0 F' + settings.seekRate);
-    //gcode.push('G1 F' + settings.feedRate);
-    gcode.push([
-        'G90',
-        'G21'
-    ].join(' '));
+    gcode.push(['G90', 'G21'].join(' '));
 
-    // var height = app.activeDocument.height;
-    let height = 1000
+    //getting heighy
+    let height = svg.viewBox[3]
+    console.log(height)
     // TODO : change height to something real
     var lastSamePath = false;
 
     var commandOnActive = true;
+    let counter = 0
+
     for (var pathIdx = 0, pathLength = paths.length; pathIdx < pathLength; pathIdx++) {
+        counter++
+        process.stdout.clearLine()
+        process.stdout.cursorTo(0)
+        process.stdout.write(counter + " / " + pathLength + " path")
+
+
         path = paths[pathIdx];
 
 
@@ -284,5 +283,6 @@ function svg2gcode(svg, settings) {
 }
 
 module.exports = {
-    svg2gcode: svg2gcode
+    svg2gcode: svg2gcode,
+    scale: scale
 }

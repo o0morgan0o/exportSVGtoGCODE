@@ -650,6 +650,9 @@ const SVGReader = {
 
         while (d.length > 0) {
             var cmd = getNext();
+            process.stdout.clearLine()
+            process.stdout.cursorTo(0)
+            process.stdout.write("in node : " + d.length + " point")
             switch (cmd) {
                 case 'M':  // moveto absolute
                     // start new subpath

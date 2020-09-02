@@ -3,6 +3,8 @@ let containString = require('./xmlFunctions').containString
 let decode_entities = require('./xmlFunctions').decode_entities
 let num_keys = require('./xmlFunctions').num_keys
 let first_key = require('./xmlFunctions').first_key
+let isa_array = require('./xmlFunctions').isa_array
+let trim = require('./xmlFunctions').trim
 
 var xml_header = '<?xml version="1.0"?>';
 var sort_args = null;

@@ -1,4 +1,7 @@
 const getPolygons = require('./getElements').getPolygons
+const getGs = require('./getElements').getGs
+const getRects = require('./getElements').getRects
+const getPaths = require('./getElements').getPaths
 
 function getRepresentation(tree) {
     var node = {
@@ -171,6 +174,7 @@ function getRepresentation(tree) {
         sortNodes[p] = node.childNodes[i];
     }
     node.childNodes = sortNodes;
+
 
     return node;
 

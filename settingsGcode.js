@@ -1,6 +1,6 @@
 const settingsGCODE = {
-    colorCommandOn4: "\nG1 Z1.5 ;ON",
-    colorCommandOff4: "\nG1 Z0 ;OFF",
+    colorCommandOn4: "\nG1 Z0 ;ON",
+    colorCommandOff4: "\nG1 Z1.5 ;OFF",
     // colorCommandOn2: colorCommandOn2GroupText.text,
     // colorCommandOff2: colorCommandOff2GroupText.text,
     // colorCommandOn3: colorCommandOn3GroupText.text,
