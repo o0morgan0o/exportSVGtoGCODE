@@ -1,37 +1,42 @@
 'use strict'
-const fs = require('fs')
-const XMLparser = require('./xmlParser.js')
-const getRepresentation = require('./getRepresentation').getRepresentation
-const svg2gcode = require('./svg2gcode').svg2gcode
-const settingsGCODE = require('./settingsGcode').settingsGCODE
+    ;
+const args = require('./args').args
+const Converter = require('./converter').Converter
+    ;
+let settingsGCODE = require('./settingsGcode').getSettings()
+    ;
+
+(async () => {
+
+    let writeGcodeInTheConsole = false
+    let svgFile = args.file
+    let outFile = args.output
+    let travelSpeed = args.travelSpeed
+    let printingSpeed = args.printingSpeed
 
 
-let writeGcodeInTheConsole = false
+    settingsGCODE.inputFile = svgFile
 
-fs.readFile('bbb.svg', 'utf8', (err, data) => {
-    if (err) {
-        console.log(err)
-        return
-    }
-    // console.log(data)
+    // TODO : make a validation of the inputs
+    // settingsGCODE.outputFile = outFile
+    //validation
+    // if (svgFile.search('.svg') == -1) {
+    //     console.error('invalid svg file, exiting... (run node main.js -h for usage)')
+    //     return 0
+    // }
 
 
-    let tree = XMLparser.XMLparse(data, { preserveAttributes: false, preserveDocumentNode: false })
-    // console.log(tree)
-    // console.log(tree.getTree().viewBox.split(' '))
-    const svgViewBox = tree.getTree().viewBox.split(' ')
-    const svgHeight = svgViewBox[3]
-    // console.log(tree.getTree().g[1].rect)
+    // settingsGCODE.inputFile = 'test/shapes/rectBig.svg'
+    let converter = new Converter(settingsGCODE)
+    let gcode = await converter.convert()
 
-    let XMLRepresentation = getRepresentation(tree.getTree())
-    XMLRepresentation.viewBox = svgViewBox
-    // console.log(XMLRepresentation)
-    // console.log('cc')
 
-    const gcode = svg2gcode(XMLRepresentation, settingsGCODE)
-    fs.writeFile('out.gcode', gcode, function (err) {
-        if (err) throw err
-    })
+    converter.showStringifyGcode(gcode)
 
-    if (writeGcodeInTheConsole) console.log(gcode)
-})
+
+
+})()
+
+module.exports = {
+    Converter: Converter
+}

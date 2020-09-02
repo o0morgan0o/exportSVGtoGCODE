@@ -1,4 +1,6 @@
-const settingsGCODE = {
+let settingsGCODE = {
+    inputFile: null,
+    outputFile: "out.gcode",
     colorCommandOn4: "\nG1 Z0 ;ON",
     colorCommandOff4: "\nG1 Z1.5 ;OFF",
     // colorCommandOn2: colorCommandOn2GroupText.text,
@@ -40,6 +42,10 @@ const settingsGCODE = {
     //   }
 
 }
+
+function getSettings() {
+    return settingsGCODE
+}
 module.exports = {
-    settingsGCODE: settingsGCODE
+    getSettings: getSettings
 }

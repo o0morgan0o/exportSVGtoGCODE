@@ -6,10 +6,10 @@ let first_key = require('./xmlFunctions').first_key
 let isa_array = require('./xmlFunctions').isa_array
 let trim = require('./xmlFunctions').trim
 
-var xml_header = '<?xml version="1.0"?>';
-var sort_args = null;
-var re_valid_tag_name = /^\w[\w\-\:\.]*$/;
-var indexNodeXML = 0;
+let xml_header = '<?xml version="1.0"?>';
+let sort_args = null;
+let re_valid_tag_name = /^\w[\w\-\:\.]*$/;
+// var indexNodeXML = 0;
 
 const XMLparser = {
 
@@ -68,6 +68,7 @@ const XMLparser = {
     },
 
     parse: function (branch, name) {
+        let indexNodeXML = 0
         // parse text into XML tree, recurse for nested nodes
         if (!branch) branch = this.tree;
         if (!name) name = null;
@@ -376,4 +377,4 @@ const XMLparser = {
 
 }
 
-module.exports = XMLparser
+module.exports = { ...XMLparser }

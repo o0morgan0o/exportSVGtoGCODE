@@ -1,7 +1,7 @@
 
 const Vec2 = require('./vec2').Vec2
 const getAttribute = require('./xmlFunctions').getAttribute
-let first_run = true
+let first_run
 
 const SVGReader = {
 
@@ -18,6 +18,7 @@ const SVGReader = {
 
 
     parse: function (svgstring, config) {
+        first_run = true
         this.tolerance_squared = Math.pow(this.tolerance, 2);
 
         // parse xml
@@ -32,6 +33,7 @@ const SVGReader = {
         node.xformToWorld = [1, 0, 0, 1, 0, 0]
         this.parseChildren(svgRootElement, node)
 
+        first_run = false
         return this.boundarys
     },
 
@@ -1146,5 +1148,5 @@ const SVGReader = {
 }
 
 module.exports = {
-    svgReader: SVGReader
+    svgReader: { ...SVGReader }
 }

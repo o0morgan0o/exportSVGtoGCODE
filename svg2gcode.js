@@ -45,7 +45,14 @@ let scale = function (val) { // val is a point value
     //     mm = parseFloat(aux);
     // }
     // return mm;
-    return 0.352778 * val
+    let tmp = 0.352778 * val
+    if (tmp.toString().indexOf('.') == -1) {
+        tmp = tmp.toString() + '.0'
+    }
+    let split = tmp.toString().split('.')
+    let decimals = split[1].substring(0, 3)
+    let result = parseFloat(split[0] + "." + decimals)
+    return result
 }
 
 function svg2gcode(svg, settings) {
@@ -77,6 +84,7 @@ function svg2gcode(svg, settings) {
     settings.color2 = settings.color2Text;
     settings.color3 = settings.color3Text;
 
+    // console.log(svg)
 
     paths = SVGReader.parse(svg, {}).allcolors
 
@@ -278,6 +286,7 @@ function svg2gcode(svg, settings) {
     //gcode.push('G1 F' + settings.seekRate);
     gcode.push(settings.end);
     gcode.push('G0 X0 Y0');
+    // console.log(gcode)
 
     return gcode.join('\n');
 }
