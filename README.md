@@ -21,7 +21,8 @@ Because I want to have something which fit my workflow and my personal preferenc
 
 ## Installation
 
-TODO : make a npm package
+(TODO : make a npm package)
+
 clone this repository and do `npm install`.
 
 ## Usage

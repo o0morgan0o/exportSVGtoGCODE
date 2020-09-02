@@ -1,4 +1,5 @@
 const getPolygons = require('./getElements').getPolygons
+const getPolylines = require('./getElements').getPolylines
 const getGs = require('./getElements').getGs
 const getRects = require('./getElements').getRects
 const getPaths = require('./getElements').getPaths

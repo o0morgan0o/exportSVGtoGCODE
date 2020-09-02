@@ -719,5 +719,7 @@ module.exports = {
     getPolygons: getPolygons,
     getGs: getGs,
     getRects: getRects,
-    getPaths: getPaths
+    getPaths: getPaths,
+    getPolylines: getPolylines
+
 }
