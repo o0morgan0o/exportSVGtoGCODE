@@ -23,7 +23,13 @@ const args = yargs
         alias: 'o',
         description: 'where to output the converted .gcode file ?',
         type: 'string',
-        default: 'out.gcode'
+        default: 'output.gcode'
+    })
+    .option('zOffset', {
+        alias: 'z',
+        description: 'elevation of the pen when moving (note: during printing Z=0 always)',
+        type: 'number',
+        default: 2
     })
     .demandOption(['f'])
     .help()

@@ -8,6 +8,8 @@ const settingsGCODE = {
     end: "\n;end of file",
     feedRate: 1600,
     seekRate: 4000,
+    writeOutput: false,
+    showOutput: true
 }
 
 function getSettings() {

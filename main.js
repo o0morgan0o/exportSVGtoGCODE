@@ -8,22 +8,23 @@ let settingsGCODE = require('./settingsGcode').getSettings()
 
 (async () => {
 
-    let writeGcodeInTheConsole = false
-    let svgFile = args.file
+    let svgFile = 'input/' + args.file
     let outFile = args.output
     let travelSpeed = args.travelSpeed
     let printingSpeed = args.printingSpeed
+    let zOffset = args.zOffset
+    console.log(zOffset)
 
+    // validateInputs()
+    // TODO : make a validation of the inputs
+    // if (svgFile.search('.svg') == -1) {
 
     settingsGCODE.inputFile = svgFile
-
-    // TODO : make a validation of the inputs
-    // settingsGCODE.outputFile = outFile
-    //validation
-    // if (svgFile.search('.svg') == -1) {
-    //     console.error('invalid svg file, exiting... (run node main.js -h for usage)')
-    //     return 0
-    // }
+    settingsGCODE.outputFile = outFile
+    settingsGCODE.seekRate = travelSpeed
+    settingsGCODE.feedRate = printingSpeed
+    settingsGCODE.colorCommandOff4 = settingsGCODE.colorCommandOff4.replace('{{Zoff}}', zOffset.toString())
+    settingsGCODE.start = settingsGCODE.start.replace('{{Zoff}}', zOffset.toString())
 
 
     // settingsGCODE.inputFile = 'test/shapes/rectBig.svg'
@@ -31,7 +32,10 @@ let settingsGCODE = require('./settingsGcode').getSettings()
     let gcode = await converter.convert()
 
 
-    converter.showStringifyGcode(gcode)
+    if (settingsGCODE.showOutput) converter.showStringifyGcode(gcode)
+    if (settingsGCODE.writeOutput) {
+        converter.writeOutputFile(gcode)
+    }
 
 
 

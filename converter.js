@@ -1,6 +1,7 @@
 const fs = require('fs')
 const fsPromises = fs.promises
 const XMLparser = require('./xmlParser.js')
+const { countReset } = require('console')
 const getRepresentation = require('./getRepresentation').getRepresentation
 const svg2gcode = require('./svg2gcode').svg2gcode
 
@@ -33,9 +34,11 @@ class Converter {
 
                 console.log('[+] Converting ...')
                 let gcodeString = svg2gcode(XMLRepresentation, this.settings)
-                // console.log('aaaaaaaaa', this.gcode)
+                console.log('[+] optimization ...')
                 gcodeString = this.removeDuplicatedLines(gcodeString)
                 console.log('[+] Conversion done !\n -----------------')
+
+
                 resolve(gcodeString)
 
             })
@@ -55,12 +58,19 @@ class Converter {
 
 
     writeOutputFile(gcodestring) {
-        if (showConsole) console.log(this.gcode)
-        console.log('writing to file ...')
-        fs.writeFile(this.settings.outputFile, this.gcode, function (err) {
+        let baseDir = "./output/"
+        let file = baseDir + this.settings.outputFile
+        let count = 1
+        while (fs.existsSync(file)) {
+            file = baseDir + count.toString() + '-' + this.settings.outputFile
+            count++
+        }
+
+        console.log('[+] Writing into file ' + file)
+        fs.writeFile(file, gcodestring, function (err) {
             if (err) throw err
         })
-        console.log("done !")
+        console.log('[+] done ')
 
     }
 
