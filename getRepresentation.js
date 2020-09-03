@@ -3,6 +3,8 @@ const getPolylines = require('./getElements').getPolylines
 const getGs = require('./getElements').getGs
 const getRects = require('./getElements').getRects
 const getPaths = require('./getElements').getPaths
+const getLines = require('./getElements').getLines
+
 
 function getRepresentation(tree) {
     var node = {

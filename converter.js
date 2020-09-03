@@ -26,20 +26,35 @@ class Converter {
                 const treeView = tree.getTree()
                 const svgViewBox = tree.getTree().viewBox.split(' ')
 
-                console.log('[+] Getting XML representation ...')
-                let XMLRepresentation = getRepresentation(tree.getTree())
-                XMLRepresentation.viewBox = svgViewBox
+                // tree view can be splitted in several layers
+                const treeLayers = []
+                for (let i = 0; i < treeView.g.length; i++) {
+                    console.log('new layer detected, export seperately...')
+                    let layer = Object.assign({}, treeView)
+                    delete layer.g
+                    layer.g = []
+                    layer.g.push(treeView.g[i])
+                    treeLayers.push(layer)
+                }
 
-                // console.log('converting...', XMLRepresentation)
+                let gcodeStrings = []
+                for (let i = 0; i < treeLayers.length; i++) {
+                    console.log(`[+] Getting XML representation on layer ${(i + 1).toString()} / ${treeLayers.length.toString()} ...`)
+                    let XMLRepresentation = getRepresentation(treeLayers[i])
+                    XMLRepresentation.viewBox = svgViewBox
 
-                console.log('[+] Converting ...')
-                let gcodeString = svg2gcode(XMLRepresentation, this.settings)
-                console.log('[+] optimization ...')
-                gcodeString = this.removeDuplicatedLines(gcodeString)
-                console.log('[+] Conversion done !\n -----------------')
+                    // console.log('converting...', XMLRepresentation)
 
+                    console.log('[+] Converting ...')
+                    let gcodeString = svg2gcode(XMLRepresentation, this.settings)
+                    console.log('[+] optimization ...')
+                    gcodeString = this.removeDuplicatedLines(gcodeString)
+                    console.log('[+] Conversion done !\n ---------------------------------------------------')
+                    gcodeStrings.push(gcodeString)
 
-                resolve(gcodeString)
+                }
+
+                resolve(gcodeStrings)
 
             })
         })
@@ -57,7 +72,8 @@ class Converter {
     }
 
 
-    writeOutputFile(gcodestring) {
+    writeOutputFile(gcodestring, indexLayer) {
+        indexLayer += 1
         let baseDir = "./output/"
         let file = baseDir + this.settings.outputFile
         let count = 1
@@ -66,11 +82,11 @@ class Converter {
             count++
         }
 
-        console.log('[+] Writing into file ' + file)
+        console.log('[+] Writing Layer ' + indexLayer.toString() + ' into file ' + file)
         fs.writeFile(file, gcodestring, function (err) {
             if (err) throw err
         })
-        console.log('[+] done ')
+        console.log('[+] Layer ' + indexLayer.toString() + ' done ')
 
     }
 

@@ -13,7 +13,7 @@ let settingsGCODE = require('./settingsGcode').getSettings()
     let travelSpeed = args.travelSpeed
     let printingSpeed = args.printingSpeed
     let zOffset = args.zOffset
-    console.log(zOffset)
+    // console.log(zOffset)
 
     // validateInputs()
     // TODO : make a validation of the inputs
@@ -29,13 +29,17 @@ let settingsGCODE = require('./settingsGcode').getSettings()
 
     // settingsGCODE.inputFile = 'test/shapes/rectBig.svg'
     let converter = new Converter(settingsGCODE)
-    let gcode = await converter.convert()
+    let gcodeArray = await converter.convert()
 
 
-    if (settingsGCODE.showOutput) converter.showStringifyGcode(gcode)
-    if (settingsGCODE.writeOutput) {
-        converter.writeOutputFile(gcode)
+    for (let i = 0; i < gcodeArray.length; i++) {
+
+        if (settingsGCODE.showOutput) converter.showStringifyGcode(gcodeArray[i])
+        if (settingsGCODE.writeOutput) {
+            converter.writeOutputFile(gcodeArray[i], i)
+        }
     }
+    console.log('[+] Finished !\n')
 
 
 

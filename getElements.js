@@ -720,6 +720,8 @@ module.exports = {
     getGs: getGs,
     getRects: getRects,
     getPaths: getPaths,
-    getPolylines: getPolylines
+    getPolylines: getPolylines,
+    getLines: getLines,
+    getSymbol: getSymbol
 
 }
