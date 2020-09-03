@@ -28,33 +28,47 @@ class Converter {
 
                 // tree view can be splitted in several layers
                 const treeLayers = []
-                for (let i = 0; i < treeView.g.length; i++) {
-                    console.log('new layer detected, export seperately...')
-                    let layer = Object.assign({}, treeView)
-                    delete layer.g
-                    layer.g = []
-                    layer.g.push(treeView.g[i])
-                    treeLayers.push(layer)
-                }
+                if (treeView.g) {
+                    //multi export
+                    for (let i = 0; i < treeView.g.length; i++) {
+                        console.log('new layer detected, export seperately...')
+                        let layer = Object.assign({}, treeView)
+                        delete layer.g
+                        layer.g = []
+                        layer.g.push(treeView.g[i])
+                        treeLayers.push(layer)
+                    }
 
-                let gcodeStrings = []
-                for (let i = 0; i < treeLayers.length; i++) {
-                    console.log(`[+] Getting XML representation on layer ${(i + 1).toString()} / ${treeLayers.length.toString()} ...`)
-                    let XMLRepresentation = getRepresentation(treeLayers[i])
+                    let gcodeStrings = []
+                    for (let i = 0; i < treeLayers.length; i++) {
+                        console.log(`[+] Getting XML representation on layer ${(i + 1).toString()} / ${treeLayers.length.toString()} ...`)
+                        let XMLRepresentation = getRepresentation(treeLayers[i])
+                        XMLRepresentation.viewBox = svgViewBox
+
+                        // console.log('converting...', XMLRepresentation)
+
+                        console.log('[+] Converting ...')
+                        let gcodeString = svg2gcode(XMLRepresentation, this.settings)
+                        console.log('[+] optimization ...')
+                        gcodeString = this.removeDuplicatedLines(gcodeString)
+                        console.log('[+] Conversion done !\n ---------------------------------------------------')
+                        gcodeStrings.push(gcodeString)
+
+                    }
+                    resolve(gcodeStrings)
+                } else {
+                    // single layer
+                    let XMLRepresentation = getRepresentation(treeView)
                     XMLRepresentation.viewBox = svgViewBox
-
-                    // console.log('converting...', XMLRepresentation)
-
                     console.log('[+] Converting ...')
-                    let gcodeString = svg2gcode(XMLRepresentation, this.settings)
+                    let gcode = svg2gcode(XMLRepresentation, this.settings)
                     console.log('[+] optimization ...')
-                    gcodeString = this.removeDuplicatedLines(gcodeString)
+                    gcode = this.removeDuplicatedLines(gcode)
                     console.log('[+] Conversion done !\n ---------------------------------------------------')
-                    gcodeStrings.push(gcodeString)
+                    resolve([gcode])
 
                 }
 
-                resolve(gcodeStrings)
 
             })
         })

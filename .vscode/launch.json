@@ -10,7 +10,7 @@
       "name": "Launch Program",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}\\main.js",
-      "args": ["-f", "aa.svg"],
+      "args": ["-f", "test2.svg"],
       "console": "integratedTerminal"
     }
   ]
