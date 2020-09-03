@@ -86,13 +86,12 @@ class Converter {
     }
 
 
-    writeOutputFile(gcodestring, indexLayer) {
+    writeOutputFile(outputFolder, gcodestring, indexLayer) {
         indexLayer += 1
-        let baseDir = "./output/"
-        let file = baseDir + this.settings.outputFile
+        let file = outputFolder + this.settings.outputFile
         let count = 1
         while (fs.existsSync(file)) {
-            file = baseDir + count.toString() + '-' + this.settings.outputFile
+            file = outputFolder + count.toString() + '-' + this.settings.outputFile
             count++
         }
 

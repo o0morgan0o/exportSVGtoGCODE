@@ -8,7 +8,9 @@ let settingsGCODE = require('./settingsGcode').getSettings()
 
 (async () => {
 
-    let svgFile = 'input/' + args.file
+    let inputFolder = settingsGCODE.inputFolder
+    let outputFolder = settingsGCODE.exportFolder
+    let svgFile = inputFolder + args.file
     let outFile = args.output
     let travelSpeed = args.travelSpeed
     let printingSpeed = args.printingSpeed
@@ -36,7 +38,7 @@ let settingsGCODE = require('./settingsGcode').getSettings()
 
         if (settingsGCODE.showOutput) converter.showStringifyGcode(gcodeArray[i])
         if (settingsGCODE.writeOutput) {
-            converter.writeOutputFile(gcodeArray[i], i)
+            converter.writeOutputFile(outputFolder, gcodeArray[i], i)
         }
     }
     console.log('[+] Finished !\n')

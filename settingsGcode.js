@@ -12,9 +12,12 @@ let settingsGCODE = {
     seekRate: 4000,
 
 
-    // TODO: choose folder export here
-    // exportFolder.fsDirectory : directoryText.text,
-    // exportFolder.fsName : filenameText.text,
+
+    // put your own folder where your svg files ares
+    inputFolder: 'E:/code/my-sketches/printedSvg/',
+    // put your own folder for the export gcode file
+    exportFolder: 'E:/trash/',
+
     writeOutput: true,
     showOutput: false
 
