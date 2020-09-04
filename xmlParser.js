@@ -68,6 +68,7 @@ const XMLparser = {
     },
 
     parse: function (branch, name) {
+        // TODO : resolve bug here for exporting several layers one time, the layers are not correctly detected
         let indexNodeXML = 0
         // parse text into XML tree, recurse for nested nodes
         if (!branch) branch = this.tree;

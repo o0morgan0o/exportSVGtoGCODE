@@ -4,6 +4,7 @@ const getGs = require('./getElements').getGs
 const getRects = require('./getElements').getRects
 const getPaths = require('./getElements').getPaths
 const getLines = require('./getElements').getLines
+const getEllipses = require('./getElements').getEllipses
 
 
 function getRepresentation(tree) {
