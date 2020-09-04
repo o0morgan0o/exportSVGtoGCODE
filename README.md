@@ -47,3 +47,9 @@ parameters:
 -h help
 -z offset Z
 ```
+
+## Notes for myself
+
+It is important to have the svg without any transformation or matrixes in the raw .svg
+so in illustrator, make :
+Dissociate , Decomposition (only background ) , Disociate ...
