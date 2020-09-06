@@ -188,7 +188,7 @@ function hash_keys_to_array(hash) {
 
 function isa_array(arg) {
     // determine if arg is an array or is array-like
-    return false;
+    return Array.isArray(arg);
 };
 
 function isa_hash(arg) {

@@ -29,7 +29,7 @@ class Converter {
 
                 // tree view can be splitted in several layers
                 const treeLayers = []
-                if (treeView.g) {
+                if (treeView.g.length) {
                     //multi export
                     for (let i = 0; i < treeView.g.length; i++) {
                         console.log('new layer detected, export seperately...')
@@ -59,7 +59,7 @@ class Converter {
                     resolve(gcodeStrings)
                 } else {
                     // single layer
-                    let XMLRepresentation = getRepresentation(treeView)
+                    let XMLRepresentation = getRepresentation(treeView.g)
                     XMLRepresentation.viewBox = svgViewBox
                     console.log('[+] Converting ...')
                     let gcode = svg2gcode(XMLRepresentation, this.settings)
