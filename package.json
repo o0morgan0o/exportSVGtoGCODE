@@ -4,7 +4,7 @@
   "description": "transform svg file to gcode instructions for penplotter",
   "main": "main.js",
   "bin": {
-    "svg-to-gcode": "./cli.js"
+    "svg-to-gcode": "./main.js"
   },
   "scripts": {
     "start": "node main.js"
