@@ -4,6 +4,7 @@ const XMLparser = require('./xmlParser.js')
 const { countReset } = require('console')
 const getRepresentation = require('./getRepresentation').getRepresentation
 const svg2gcode = require('./svg2gcode').svg2gcode
+const chalk = require('chalk')
 
 class Converter {
     constructor(settings) {
@@ -95,7 +96,7 @@ class Converter {
             count++
         }
 
-        console.log('[+] Writing Layer ' + indexLayer.toString() + ' into file ' + file)
+        console.log('[+] Writing Layer ' + indexLayer.toString() + ' into file ' + chalk.green(file))
         fs.writeFile(file, gcodestring, function (err) {
             if (err) throw err
         })
