@@ -1,14 +1,17 @@
 {
-  "name": "exportToGcodeJS",
+  "name": "@o0morga0o/svg-to-gcode-js",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "transform svg file to gcode instructions for penplotter",
+  "main": "main.js",
+  "bin": {
+    "svg-to-gcode": "./cli.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node main.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Morgan Thibert",
+  "license": "MIT",
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^8.1.3"

@@ -6,6 +6,8 @@ const Converter = require('./converter').Converter
 let settingsGCODE = require('./settingsGcode').getSettings()
     ;
 
+console.log('hello');
+
 (async () => {
 
     let inputFolder = settingsGCODE.inputFolder
