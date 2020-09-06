@@ -1,11 +1,12 @@
 
+const settingsGcode = require('./settingsGcode').getSettings()
 const yargs = require('yargs')
 const args = yargs
-    .usage('Usage: node main.js -f myFile.svg')
+    .usage(`Usage: node main.js -f myFile.svg\nInput Folder: ${settingsGcode.inputFolder}\nOutput Folder: ${settingsGcode.exportFolder}`)
     .option('file', {
         alias: 'f',
         description: 'give me a svg file to convert (required)',
-        type: 'string'
+        type: 'string',
     })
     .option('travelSpeed', {
         alias: 't',
