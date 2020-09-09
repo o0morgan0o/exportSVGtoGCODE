@@ -7,8 +7,6 @@ const path = require('path')
 const svgoConfig = require('./svgoConfig').svgoConfig
 const SVGO = require('./node_modules/svgo/lib/svgo.js')
     ;
-const { ifError } = require('assert');
-const settingsGcode = require('./settingsGcode');
 let settingsGCODE = require('./settingsGcode').getSettings()
     ;
 
@@ -25,6 +23,7 @@ console.log('hello');
     let travelSpeed = args.travelSpeed
     let printingSpeed = args.printingSpeed
     let zOffset = args.zOffset
+    let useSvgo = args.useSvgo
     // console.log(zOffset)
 
     // validateInputs()
@@ -38,10 +37,11 @@ console.log('hello');
     settingsGCODE.feedRate = printingSpeed
     settingsGCODE.colorCommandOff4 = settingsGCODE.colorCommandOff4.replace('{{Zoff}}', zOffset.toString())
     settingsGCODE.start = settingsGCODE.start.replace('{{Zoff}}', zOffset.toString())
+    settingsGCODE.useSvgo = useSvgo
 
     // implementation svgo
-    if (settingsGCODE.useSvgGo === true) {
-        console.log('trying to convert...')
+    if (settingsGCODE.useSvgo === true) {
+        console.log('[+] using svgo to optimize the svg file ...')
         const mSvgo = new SVGO({
             floatPrecision: 8,
             plugins: svgoConfig,

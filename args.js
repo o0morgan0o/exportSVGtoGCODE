@@ -32,6 +32,11 @@ const args = yargs
         type: 'number',
         default: 2
     })
+    .option('useSvgo', {
+        alias: 's',
+        description: 'use svgo lib to make optimizations, can break some things',
+        type: 'boolean',
+    })
     .demandOption(['f'])
     .help()
     .alias('help', 'h')

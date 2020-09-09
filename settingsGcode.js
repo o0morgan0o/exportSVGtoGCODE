@@ -20,7 +20,7 @@ let settingsGCODE = {
 
     writeOutput: true,
     showOutput: false,
-    useSvgGo: true
+    useSvgo: true
 
 }
 
