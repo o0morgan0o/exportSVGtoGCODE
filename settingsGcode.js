@@ -19,7 +19,8 @@ let settingsGCODE = {
     exportFolder: 'E:/trash/',
 
     writeOutput: true,
-    showOutput: false
+    showOutput: false,
+    useSvgGo: true
 
 }
 
