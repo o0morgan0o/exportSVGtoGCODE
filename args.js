@@ -12,13 +12,13 @@ const args = yargs
         alias: 't',
         description: 'travel speed (no printing)',
         type: 'number',
-        default: 4000
+        default: 7000
     })
     .option('printingSpeed', {
         alias: 'p',
         description: 'speed during printing',
         type: 'number',
-        default: 1600
+        default: 3200
     })
     .option('output', {
         alias: 'o',
