@@ -1,3 +1,4 @@
+
 const getPolygons = require('./getElements').getPolygons
 const getPolylines = require('./getElements').getPolylines
 const getGs = require('./getElements').getGs
@@ -5,6 +6,7 @@ const getRects = require('./getElements').getRects
 const getPaths = require('./getElements').getPaths
 const getLines = require('./getElements').getLines
 const getEllipses = require('./getElements').getEllipses
+const getCircles = require('./getElements').getCircles
 
 
 function getRepresentation(tree) {
