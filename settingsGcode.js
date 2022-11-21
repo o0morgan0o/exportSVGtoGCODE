@@ -14,9 +14,9 @@ let settingsGCODE = {
 
 
     // put your own folder where your svg files ares
-    inputFolder: 'E:/code/my-sketches/printedSvg/',
+    inputFolder: './input/',
     // put your own folder for the export gcode file
-    exportFolder: 'E:/trash/',
+    exportFolder: './output/',
 
     writeOutput: true,
     showOutput: false,
